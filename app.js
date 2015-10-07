@@ -42,6 +42,10 @@ app.get('/', function(req, res) {
 });
 
 
+/* GET home page. */
+app.get('/clubs', function(req, res, next) {
+    res.json(clubs);
+});
 
 
 /// catch 404 and forward to error handler
