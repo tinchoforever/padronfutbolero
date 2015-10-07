@@ -101,6 +101,7 @@ io.sockets.on('connection', function (socket) {
   //some web-client disconnects
   socket.on('connect', function (socket) {
    io.sockets.emit('newClubs', clubs);
+   console.log('clubs');
    console.log('connect',clubs);
   });
   
