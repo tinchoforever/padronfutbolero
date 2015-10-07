@@ -1,0 +1,147 @@
+<div class="home">
+	<div class="section section-title row ">
+		<div class="valign-demo valign-wrapper content-block">
+			     <div class="valign centered">
+					<h3>¿Buscas cerrajero? </h3>
+					<h6> Todos los cerrajeros del pais en un solo lugar</h6>
+			</div>
+		</div>
+	</div>
+	<div class="section search row">
+		<div class="row ">
+			<div class="col s0 m6 l6 hide-on-med-and-down cta content-block hide-on-med-and-down">
+				<div class="valign-wrapper title-row">
+					<h3 class="title valign">¿Buscas cerrajero? </h3>
+					
+				</div>
+			</div>
+			<div class="col s12 m12 l6 content-block">
+
+			<div class="row">
+				<div class="col s12 m12 l12">
+					<div class="valign-demo valign-wrapper">
+					     <div class="valign">
+							<div class="row">
+								<div class="col s6 m8">
+								<p>Si estas en una urgencia, Llama a la cerrajeria 24hs mas cercana ahora. </p>
+								</div>
+								<div class="col s6 m4">
+								<img src="images/icon1.png">
+								</div>
+							</div>
+							<div class="row">
+								<div class="valign-demo  valign-wrapper">
+							      <div class="valign full-width actions">
+									<a  href="#/call" class="waves-effect waves-light btn btn-large full">
+										<i class="mdi-communication-call left"></i>Llama al mas cercano.</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+						<div class="col s12 m12">
+							<div class="col s6 m8">
+								<p>Elegí Provincia y Ciudad para encontrarla la mas cercana</p>
+							</div>
+							<div class="col s6 m4">
+								<img src="images/icon2.png">
+							</div>
+					    <select class="browser-default" ng-model="province"
+					    ng-options="p for p in provincies">
+					      <option value="" disabled selected>Elegí una Provincia</option>
+					      
+					    </select>
+					    <select class="browser-default" ng-model="city"
+							ng-options="c for c in cities">
+					      <option value="" disabled selected>Elegi una Ciudad</option>
+					      
+					    </select>
+					<div class="row">
+						<div class="valign-demo  valign-wrapper">
+						      <div class="valign full-width actions">
+								<a ng-click="search()" class="waves-effect waves-light btn btn-large full"><i class="mdi-action-search left"></i>Buscar</a>
+							</div>
+						</div>	
+					</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
+		
+		
+	
+	</div>
+<div class="section navigate row">
+	<div class="row">
+		<div class="col s12 m6 l6" >
+			<div class="valign-wrapper title-row">
+								
+								<h1 class="title valign">
+<small>busqueda por </small>
+									Provincias </h1>
+						
+								
+							</div>
+			
+		</div>
+		<div class="col s12 m6 l6">
+			<div class="valign-demo valign-wrapper content-block">
+			      	<div class="valign">
+			
+						<div class="list row">
+							<div class="col s6 m4" ng-repeat="p in provincies"> 
+								<p><a ng-href="#/province/{{p}}">{{p}}</a></p> </div>
+							
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="section navigate row">
+	<div class="row">
+		<div class="col s12 m6" >
+			<div class="valign-wrapper title-row">
+								
+								<h3 class="title valign">
+									¿Sos cerrajero?
+								</h3>
+							</div>
+		</div>
+		<div class="col s12 m6">
+			<div class="row">
+						<div class="valign-demo  valign-wrapper">
+						      <div class="valign full-width actions">
+						      	<p> En <strong>buscocerrajero.com 
+						      	</strong> nucleamos a todos los cerrajeros. </p>
+						      	<p> Completa el formulario para poder ser encontrado por vecinos de tu ciudad.</p>
+								<a class="waves-effect waves-light btn btn-large full"><i class="mdi-content-create left"></i>Inscribirse</a>
+							</div>
+					</div>
+				</div>	
+		</div>
+	</div>
+</div>
+<div class="section copy row">
+		<div class="col s12 m6">
+			<div class="valign-demo valign-wrapper ">
+			      	<div class="valign">
+						<p><strong> BuscoCerrajero </strong> nuclea a todas las cerrajerías y cerrajeros del Argentina y Uruguay atraves de  una búsqueda ágil y simple para que pueda rapidamente lo que encontrar</p>	
+						</div>
+					</div>
+		</div>
+		<div class="col s12 m6">
+			<div class="valign-demo valign-wrapper center-align ">
+			 	<div class="valign full-width actions">
+					<a href="http://www.trabex.com" target="_blank">
+						<img src="images/logo-trabex.gif"></a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+         
+

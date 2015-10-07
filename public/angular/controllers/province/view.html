@@ -1,0 +1,25 @@
+<div class="home province">
+<div class="section navigate row">
+	<div class="row">
+		<div class="col s12 m6" >
+			<div class="valign-demo valign-wrapper content-block">
+			      	<div class="valign">
+						<h1> {{province}}  </h1>
+						<h4> <strong>Seleccione la ciudad</strong></h4>
+				</div>
+			</div>
+		</div>
+		<div class="col s12 m6">
+			<div class="valign-demo valign-wrapper">
+			      	<div class="valign">
+						<div class="list row">
+							<div class="col s12 m4" ng-repeat="p in cities"> 
+								<p>
+									<a class="truncate" href="#/city/{{province}}/{{p}}">{{p}}</a></p> </div>
+							
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+</div>
