@@ -103,7 +103,14 @@ io.sockets.on('connection', function (socket) {
   socket.on('client', function (data) {
     console.log(data);
   });
-
+   //we expect to get a ping from 
+  //them saying what room they want to join
+  socket.on('club', function(data) {
+    console.log('club',data);
+    addClub(data);
+    io.emit('newClubs', clubs);
+    console.log('newClubs',clubs);
+  });
   //we expect to get a ping from 
   //them saying what room they want to join
   socket.on('room', function(data) {
@@ -117,4 +124,22 @@ io.sockets.on('connection', function (socket) {
 });
 
 
+var clubs = [];
+var addClub = function(c){
 
+  var found = false;
+  for (var i = 0; i < clubs.length; i++) {
+    if (clubs[i].key === c){
+      clubs[i].count++;
+      found= true;
+      break;
+    }
+  };
+  if (!found){
+    clubs.push({
+      id: clubs.length,
+      key: c,
+      count:1
+    });
+  }
+}

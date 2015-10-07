@@ -4,270 +4,115 @@ window.hinchas.cloud = {
 
     baseRoot: [],
     filteredRoot: [],
-    reload : function(country,city,key){
-    	window.abreLatam.cloud.filteredRoot = _.filter(
-    		this.projects, function(p) {
-    			return p.Ciudad === city && p.Pais === country;
-		});
-		var root = this.processRoot(window.abreLatam.cloud.filteredRoot);
+    reload : function(clubes){
 
-		
 
-		this.changebubble(root);
-		return window.abreLatam.cloud.filteredRoot;
+        this.changebubble(clubes);
     },
-    reloadCountry : function(country){
-        window.abreLatam.cloud.filteredRoot = _.filter(
-            this.projects, function(p) {
-                return p.Pais === country;
-        });
-        var root = this.processRoot(window.abreLatam.cloud.filteredRoot);
+    processRoot: function(clubes){
+            
+
+
+    },
+    load: function(clubes){
+    
+        this.projects = clubes;
+        var root = this.processRoot(clubes);
+        this.setupColors(clubes);
+
+        this.reloadGraph(clubes); 
+
+
+    },
+    setupColors: function(clubes){
+
+        window.hinchas.cloud.color = 
+            d3.scale.category20()
+            .domain(d3.range(clubes.length));        
+
+    },
+
+    getColorFor:function(clube){
+        return  window.hinchas.cloud.color(club.id);
+    },
+    reloadGraph: function(clubes){
+        var data = clubes;
+        var width = $(window).width()/2;
+        barHeight = 40;
+
+       
+        var chart = this.svg = d3.select("svg")
+              .append("g")
+                .attr("width", width)
+                .attr("height", width)
+                .attr("class", "bubble chart")
+
+        window.hinchas.cloud.x = 
+        d3.scale.linear()
+            .range([100, width]);
+
+        window.hinchas.cloud.x.domain([0, d3.max(data, function(d) { return d.count; })]);
+
+        window.hinchas.cloud.svg.attr("height", barHeight * data.length);
+
+        window.hinchas.cloud.changebubble(clubes); 
 
         
-        this.changebubble(root);
-        return window.abreLatam.cloud.filteredRoot;
     },
+    changebubble:function(clubes){
+        var width = $(window).width()/2;
 
-   	showAll: function(){
-   		var root = this.processRoot(this.projects);
-   		this.changebubble(root);
-   	},
-   	countOrganizations:function(projects){
-   		var groups = _.countBy(projects, function(d){
-                return d.Quien.trim() === "" ? "N/A" : d.Quien ;
-            });
-            var nodes = [];
-            var i = 0;
-            for(var k in groups){ 
-                nodes.push({
-                    "cluster":0,
-                    "color":i,
-                    "name": k,
-                    "count": groups[k],
-                    "size":groups[k]
-                });
-                i++;
-            }
+        var barHeight = 40;
+        var data = clubes;
+        
+         window.hinchas.cloud.x = d3.scale.linear()
+            .range([100, width]);
 
-            return nodes;       
-   	},
-    processRoot: function(projects){
-    		var groups = _.countBy(projects, function(d){
-                return d.Categoria.trim() === "" ? "N/A" : d.Categoria ;
-            });
-            var nodes = [];
-            var i = 0;
-            for(var k in groups){ 
-                nodes.push({
-                    "cluster":0,
-                    "color":i,
-                    "name": k,
-                    "count": groups[k],
-                    "size":groups[k]
-                });
-                i++;
-            }
-            
-			var root = {
-            	name: "root",
-            	children : nodes,
-            };
-            return root;
-    },
-    load: function(projects){
-    
-    	this.projects = projects;
-    	var root = this.processRoot(projects);
-    	this.setupColors(root);
+        window.hinchas.cloud.x.domain([0, 
+            100]);
+        
+        
+        var bar = 
+            window.hinchas.cloud.bar = 
+            this.svg.selectAll("g.bar")
+              .data(data, function(d,i){
+                return i;
+              });
+        
+        bar.attr("transform", function(d, i) 
+                    { return "translate(0," + i * barHeight + ")"; });
 
-    	this.reloadGraph(root);	
-
-
-    },
-    getCategoryIndex: function(category){
-    	for (var i = 0; i < this.categories.length; i++) {
-    		if (this.categories[i].name === category){
-    			return i;
-    		}
-    	};
-    	return 0;
-    },
-    setupColors: function(root){
-    	
-
-    	window.abreLatam.cloud.categories = root.children.map(function(d,i){
-    		return{
-    			name:d.name,
-    			pos: i,
-    		}
-    	});
-
-    	window.abreLatam.cloud.color = 
-    		d3.scale.category20()
-		    .domain(d3.range(window.abreLatam.cloud.categories.length));
-    	
-
-    },
-
-    getColorFor:function(category){
-    	var i = window.abreLatam.cloud.getCategoryIndex(category);
-    	return  window.abreLatam.cloud.color(i);
-    },
-   	reloadGraph: function(root){
-   		var diameter = 300,
-    format = d3.format(",d");
-
-
-var bubble = d3.layout.pack()
-    .sort(null)
-    .size([diameter, diameter])
-    .padding(10);
-this.svg = d3.select("svg")
-			  .append("g")
-			    .attr("transform", "translate(675,200)")
-			    .attr("width", diameter)
-			    .attr("height", diameter)
-			    .attr("class", "bubble");
-
-var node = window.abreLatam.cloud.svg.selectAll(".node")
-    .data(bubble.nodes(classes(root))
-    .filter(function (d) {
-    return !d.children;
-}))
-    .enter().append("g")
-    .attr("class", "node")
-    .attr("transform", function (d) {
-    return "translate(" + d.x + "," + d.y + ")";
-});
-
-node.append("title")
-    .text(function (d) {
-    return d.className + ": " + format(d.value);
-});
-
-node.append("circle")
-    .attr("r", function (d) {
-    return d.r;
-})
-    .style("fill", function (d, i) {
-    return window.abreLatam.cloud.getColorFor(d.className);
-});
-/* Create the text for each block */
-    node.append("text")
-	    .attr("dx", function(d){return -20})
-	    .text(function(d){return d.className})
-
-
-// Returns a flattened hierarchy containing all leaf nodes under the root.
-
-function classes(root) {
-    var classes = [];
-
-    function recurse(name, node) {
-        if (node.children) node.children.forEach(function (child) {
-            recurse(node.name, child);
-        });
-        else classes.push({
-            packageName: name,
-            className: node.name,
-            value: node.size
-        });
+        bar.enter()
+                .append("g")
+                .attr('class', 'bar')
+                .attr("transform", function(d, i) 
+                    { return "translate(0," + i * barHeight + ")"; })
+        
+        bar.append('rect');
+        //         .attr("width", function(d) { return window.hinchas.cloud.x(d.count); })
+        //         .attr("height", barHeight - 1);
+        
+        bar.append('text');
+        //           .attr("x", function(d) { return window.hinchas.cloud.x(d.count) - 3; })
+        //           .attr("y", barHeight / 2)
+        //           .attr("dy", ".35em")
+        //           .text(function(d) { return d.key +  " - " + d.count; });
+        
+        bar.select('rect')
+                .transition()
+                .duration(1000)
+                .attr("width", function(d) { 
+                    return window.hinchas.cloud.x(d.count); })
+                .attr("height", barHeight - 1);
+        bar.select('text')
+                .transition()
+                .duration(1000)
+                  .attr("x", function(d) { 20; })
+                  .attr("y", barHeight/2)
+                  .attr("dy", ".1em")
+                  .text(function(d) { return d.key +  "  " + d.count + " "; });
+        
+        bar.exit().remove();
     }
 
-    recurse(null, root);
-    return {
-        children: classes
-    };
-}
-
-//d3.select(self.frameElement).style("height", diameter + "px");
-
-
-//My Refer;
-var click = 0;
-
-this.changebubble= function (root) {
-    var node = this.svg.selectAll(".node")
-        .data(
-            bubble.nodes(classes(root)).filter(function (d){return !d.children;}),
-            function(d) {return d.className} // key data based on className to keep object constancy
-        );
-    
-    // capture the enter selection
-    var nodeEnter = node.enter()
-        .append("g")
-        .attr("class", "node")
-        .attr("transform", function (d) {
-            return "translate(" + d.x + "," + d.y + ")";
-        });
-    
-    // re-use enter selection for circles
-    nodeEnter
-        .append("circle")
-        .attr("r", function (d) {return d.r;})
-        .style("fill", function (d, i) {
-        	
-        	return window.abreLatam.cloud.getColorFor(d.className);
-        })
-    
-    nodeEnter.append("text")
-        .attr("dx", function(d){return -20})
-	    .text(function(d){return d.className;})
-    
-
-    // re-use enter selection for titles
-    nodeEnter
-        .append("title")
-        .text(function (d) {
-            return d.className + ": " + format(d.value);
-        });
-    
-    node.select("circle")
-        .transition().duration(1000)
-        .attr("r", function (d) {
-            return d.r;
-        })
-        .style("fill", function (d, i) {
-            
-            return window.abreLatam.cloud.getColorFor(d.className);
-        });
-    node.select("text")
-    	.transition().duration(1000)
-	    .attr("dx", function(d){return -20})
-	    .text(function(d){return d.className})
-
-
-    node.transition().attr("class", "node")
-        .attr("transform", function (d) {
-        return "translate(" + d.x + "," + d.y + ")";
-    });
-
-    node.exit().remove();
-
-    // Returns a flattened hierarchy containing all leaf nodes under the root.
-    function classes(root) {
-        var classes = [];
-
-        function recurse(name, node) {
-            if (node.children) node.children.forEach(function (child) {
-                recurse(node.name, child);
-            });
-            else classes.push({
-                packageName: name,
-                className: node.name,
-                value: node.size
-            });
-        }
-
-        recurse(null, root);
-        return {
-            children: classes
-        };
-    }
-
-    //d3.select(self.frameElement).style("height", diameter + "px");
-	}
-
-   	}
 };
-
