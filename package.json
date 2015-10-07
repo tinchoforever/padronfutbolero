@@ -1,0 +1,29 @@
+{
+  "name": "agro-iot",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "body-parser": "~1.0.0",
+    "cookie-parser": "~1.0.1",
+    "csvtojson": "^0.4.2",
+    "debug": "~0.7.4",
+    "ejs": "*",
+    "express": "~4.2.0",
+    "fast-csv": "^0.6.0",
+    "geoip-lite": "*",
+    "moment": "^2.10.6",
+    "mongoose": "~4.0.3",
+    "morgan": "~1.0.0",
+    "socket.io": "^1.0.6",
+    "static-favicon": "~1.0.0",
+    "twilio": "^2.3.0"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "keywords": []
+}
