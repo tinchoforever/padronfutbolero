@@ -1,4 +1,4 @@
-
+moment.locale('es'); 
 
 window.hinchas = window.hinchas || {};
 window.hinchas.controller = {
@@ -14,6 +14,7 @@ window.hinchas.controller = {
             window.hinchas.controller.socket.on('newClubs', function(c){
                 window.hinchas.controller.votados = c;
                 window.hinchas.cloud.reload(window.hinchas.controller.votados );
+                $('.tiempo').html(moment(new Date()).fromNow());
             });
             window.hinchas.cloud.load(window.hinchas.controller.votados );
         };
