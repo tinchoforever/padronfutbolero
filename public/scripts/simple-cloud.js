@@ -66,10 +66,10 @@ window.hinchas.cloud = {
         var data = clubes;
         
          window.hinchas.cloud.x = d3.scale.linear()
-            .range([100, width]);
+            .range([2, width*5]);
 
         window.hinchas.cloud.x.domain([0, 
-            100]);
+            300]);
         
         
         var bar = 

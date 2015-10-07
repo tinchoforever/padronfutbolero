@@ -98,6 +98,11 @@ io.sockets.on('connection', function (socket) {
   socket.on('disconnect', function (socket) {
     console.log("disconnect");
   });
+  //some web-client disconnects
+  socket.on('connect', function (socket) {
+   io.sockets.emit('newClubs', clubs);
+   console.log('connect',clubs);
+  });
   
   //some web-client sents in a msg
   socket.on('client', function (data) {

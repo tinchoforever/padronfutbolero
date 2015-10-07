@@ -51,71 +51,10 @@
     <script src="/socket.io/socket.io.js"></script>
   </head>
   <body>
+    <h1 class="wow fadeIn"> <img class="logo" src="/images/logo_horizontal.png"> </h1>
     <h1> Top 10 </h1>
     <svg></svg>
-    <h1 class="wow fadeIn"> <img class="logo" src="/images/logo.png"> </h1>
-  <div ng-app="myApp">
-  <div class="home" ng-controller="formController">
-  <div class="section search search-form row">
-      <div class="row">
-          <div class="col s12">
-              <div class="row">
-                <form class="col s12">
-
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <input id="nombre" type="text" name="nombre" class="validate" ng-model="nombre" ng-change="formChange()">
-                      <label for="nombre">DNI</label>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <input id="razon_social" type="text" name="razon_social" class="validate" ng-model="razon_social" ng-change="formChange()">
-                      <label for="razon_social">Mesa</label>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <input id="direccion" type="text" name="direccion" class="validate" ng-model="direccion" ng-change="formChange()">
-                      <label for="direccion">Orden</label>
-                    </div>
-                  </div>
-
-
-                  <div class="row">
-                    <select class="browser-default" ng-model="myProvince" ng-options="p.nombre_provincia for p in provinces" ng-change="loadCities()">
-                      <option value="" selected>Elegi un club Local</option>
-                      <option ng-value="p.nombre_provincia"></option>
-                      <input type="hidden" name="nombre_provincia" ng-value="myProvince.nombre_provincia" >
-                    </select>
-                  </div>
-                      <div class="row">
-                    <select class="browser-default" ng-model="myProvince" ng-options="p.nombre_provincia for p in provinces" ng-change="loadCities()">
-                      <option value="" selected>Elegi un club Nacioal</option>
-                      <option ng-value="p.nombre_provincia"></option>
-                      <input type="hidden" name="nombre_provincia" ng-value="myProvince.nombre_provincia" >
-                    </select>
-                  </div>
-
-                  <div class="row">
-                    <div class="valign-demo  valign-wrapper">
-                        <div class="valign full-width actions">
-                            <button class="waves-effect waves-light btn btn-large full" 
-                            ng-href="" ng-disabled="invalid" ng-click="clicky()">
-                             <i class="mdi-action-done left"></i>Enviar</button>
-                        </div>
-                    </div>
-                  </div>
-
-                </form>
-              </div>
-
-          </div>
-      </div>
-  </div>
-</div>
+  
 
   </body>
 
@@ -140,5 +79,5 @@
   <script src="/scripts/simple-cloud.js"></script> 
  
   <script src="/scripts/app.js"></script>
-  
+
 </html>

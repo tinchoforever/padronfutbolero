@@ -10,7 +10,7 @@ window.hinchas.controller = {
         var ready = function(error, clubes){
             window.hinchas.controller.clubesDisponibles = clubes;
             window.hinchas.controller.socket = io();
-            window.hinchas.controller.sendClub('Boca');
+            
             window.hinchas.controller.socket.on('newClubs', function(c){
                 window.hinchas.controller.votados = c;
                 window.hinchas.cloud.reload(window.hinchas.controller.votados );
